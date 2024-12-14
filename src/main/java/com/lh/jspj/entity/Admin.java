@@ -29,7 +29,7 @@ public class Admin {
     private int identity;
 
     //昵称
-    private String nickName;
+    private String name;
 
     private LocalDateTime createTime;
 

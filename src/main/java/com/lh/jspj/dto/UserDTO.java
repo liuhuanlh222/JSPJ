@@ -13,7 +13,7 @@ public class UserDTO {
 
     private Long id;
 
-    private String nickName;
+    private String name;
 
     private int identity;
 

@@ -10,28 +10,23 @@ import java.time.LocalDateTime;
 /**
  * @author LH
  * @version 1.0
- * @description 学生信息
- * @date 2024/12/12 14:49
+ * @description 课程信息
+ * @date 2024/12/13 14:39
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tb_student")
-public class Student {
-    //主键
+@TableName("tb_admin")
+public class Course {
     private Long id;
 
-    private String username;
+    private String courseName;
 
-    private String password;
+    private int teacherId;
 
-    //身份
-    private int identity;
-
-    //昵称
-    private String name;
+    private String course_status;
 
     private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+    private LocalDateTime endTime;
 }

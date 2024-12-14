@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +32,14 @@ public class RefreshToken implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //如果是OPTIONS请求，直接返回成功响应
+        if(request.getMethod().equalsIgnoreCase("OPTIONS")){
+            response.setStatus(HttpServletResponse.SC_OK);
+            //不能继续进入Controller
+            return false;
+        }
         //获取请求头token
-        String token = request.getHeader("authorization");
+        String token = request.getHeader("Authorization");
         if (token == null) {
             return true;
         }

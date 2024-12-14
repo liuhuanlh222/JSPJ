@@ -58,11 +58,11 @@ public class UserDTOServiceImpl extends ServiceImpl<UserDTOMapper, UserDTO> impl
         String password = loginDTO.getPassword();
         //获取tokenKey
         String tokenKey = LOGIN_USER_KEY + username;
-        //判断用户是否已经登录
-        Map<Object, Object> isUser = stringRedisTemplate.opsForHash().entries(tokenKey);
-        if (!isUser.isEmpty()) {
-            return Result.fail("该用户已登录");
-        }
+//        //判断用户是否已经登录
+//        Map<Object, Object> isUser = stringRedisTemplate.opsForHash().entries(tokenKey);
+//        if (!isUser.isEmpty()) {
+//            return Result.fail("该用户已登录");
+//        }
         //根据用户名查询用户
         UserDTO userDTO = findUserDTO(username, password);
         //判断用户是否存在
@@ -71,6 +71,7 @@ public class UserDTOServiceImpl extends ServiceImpl<UserDTOMapper, UserDTO> impl
         }
         //查询用户身份
         int identity = userDTO.getIdentity();
+        Long userId = userDTO.getId();
         //将user对象转为HashMap进行存储
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
@@ -85,6 +86,7 @@ public class UserDTOServiceImpl extends ServiceImpl<UserDTOMapper, UserDTO> impl
         Map<String, Object> map = new HashMap<>();
         map.put("token", username);
         map.put("identity", identity);
+        map.put("id", userId);
         return Result.ok(map);
     }
 

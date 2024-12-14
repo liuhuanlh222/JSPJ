@@ -1,6 +1,9 @@
 package com.lh.jspj.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lh.jspj.dto.Result;
+import com.lh.jspj.dto.UserDTO;
+import com.lh.jspj.dto.UserHolder;
 import com.lh.jspj.entity.Teacher;
 import com.lh.jspj.mapper.TeacherMapper;
 import com.lh.jspj.service.TeacherService;
@@ -14,4 +17,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
+
+    @Override
+    public Result get() {
+        UserDTO user = UserHolder.getUser();
+        return Result.ok(user);
+    }
 }

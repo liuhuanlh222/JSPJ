@@ -1,7 +1,9 @@
 package com.lh.jspj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lh.jspj.dto.Result;
 import com.lh.jspj.entity.Teacher;
+import org.apache.ibatis.executor.ResultExtractor;
 
 /**
  * @author LH
@@ -10,4 +12,5 @@ import com.lh.jspj.entity.Teacher;
  * @date 2024/12/12 15:24
  */
 public interface TeacherService extends IService<Teacher> {
+    Result get();
 }
