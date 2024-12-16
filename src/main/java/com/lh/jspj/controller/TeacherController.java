@@ -24,4 +24,5 @@ public class TeacherController {
     public Result get() {
         return teacherService.get();
     }
+
 }

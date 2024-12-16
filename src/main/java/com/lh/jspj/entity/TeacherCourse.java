@@ -10,25 +10,20 @@ import java.time.LocalDateTime;
 /**
  * @author LH
  * @version 1.0
- * @description 课程信息
- * @date 2024/12/13 14:39
+ * @description 教师与课程
+ * @date 2024/12/16 15:44
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tb_course")
-public class Course {
+@TableName("teacher_course")
+public class TeacherCourse {
+
     private Long id;
 
-    private String courseName;
+    private Long teacherId;
 
-    private LocalDateTime startTime;
+    private Long courseId;
 
-    private LocalDateTime endTime;
-
-    private int number;
-
-    private int evaluation;
-
-    private int unEvaluation;
+    private LocalDateTime createTime;
 }
