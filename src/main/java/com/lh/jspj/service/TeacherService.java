@@ -13,4 +13,8 @@ import org.apache.ibatis.executor.ResultExtractor;
  */
 public interface TeacherService extends IService<Teacher> {
     Result get();
+
+    Result info();
+
+    Result getCourse(int pageNum, int pageSize);
 }

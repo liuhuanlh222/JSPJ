@@ -1,12 +1,6 @@
 package com.lh.jspj.controller;
 
-import com.lh.jspj.dto.Result;
-import com.lh.jspj.entity.Course;
-import com.lh.jspj.service.CourseService;
-import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,12 +12,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("course")
 public class CourseController {
-
-    @Resource
-    private CourseService courseService;
-
-    @GetMapping("/getCourseByTeacherId")
-    public Result getCourseByTeacherId(@RequestParam("teacherId") Long teacherId) {
-        return courseService.getCourseByTeacherId(teacherId);
-    }
 }

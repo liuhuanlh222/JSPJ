@@ -31,6 +31,9 @@ public class Student {
     //昵称
     private String name;
 
+    //选课数量
+    private Integer courseNumber;
+
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;

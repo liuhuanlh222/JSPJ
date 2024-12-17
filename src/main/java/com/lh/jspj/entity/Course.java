@@ -1,5 +1,6 @@
 package com.lh.jspj.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("tb_course")
 public class Course {
+
     private Long id;
 
     private String courseName;
@@ -31,4 +33,11 @@ public class Course {
     private int evaluation;
 
     private int unEvaluation;
+
+    @TableField(exist = false)
+    private String teacherName;
+
+    @TableField(exist = false)
+    private double score;
+
 }

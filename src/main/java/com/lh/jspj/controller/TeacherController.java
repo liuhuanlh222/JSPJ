@@ -5,6 +5,7 @@ import com.lh.jspj.service.TeacherService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,6 +24,16 @@ public class TeacherController {
     @GetMapping("/get")
     public Result get() {
         return teacherService.get();
+    }
+
+    @GetMapping("/info")
+    public Result info() {
+        return teacherService.info();
+    }
+
+    @GetMapping("/getCourse")
+    public Result getCourse(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        return teacherService.getCourse(pageNum, pageSize);
     }
 
 }
