@@ -155,4 +155,25 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         teacherCourseService.updateById(teacherCourse);
         return Result.ok();
     }
+
+    @Transactional
+    @Override
+    public Result deleteCourseById(Long id) {
+        //删除学生课程信息表，将学生课程数量减一
+        List<StudentCourse> studentCourses = studentCourseService.query().eq("course_id", id).list();
+        //一个课程可以对应多个学生
+        if (!studentCourses.isEmpty()) {
+            for (StudentCourse studentCourse : studentCourses) {
+                Long studentId = studentCourse.getStudentId();
+                studentCourseService.removeById(studentCourse);
+                studentService.update().setSql("course_number = course_number - 1").eq("id", studentId).update();
+            }
+        }
+        //删除教师课表信息表，一个课程对应一个教师
+        TeacherCourse teacherCourse = teacherCourseService.query().eq("course_id", id).one();
+        teacherCourseService.removeById(teacherCourse);
+        //删除课程信息
+        courseService.removeById(id);
+        return Result.ok();
+    }
 }

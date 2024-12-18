@@ -6,12 +6,12 @@ spring:
     name: jspj-project
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.143:3306/jspj?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.101.144:3306/jspj?useSSL=false&serverTimezone=UTC
     username: root
     password: Baydi285396.
   data:
     redis:
-      host: 192.168.101.143
+      host: 192.168.101.144
       port: 6379
       password: 1234
       database: 2

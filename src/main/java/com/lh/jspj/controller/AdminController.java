@@ -66,4 +66,9 @@ public class AdminController {
         return adminService.updateCourse(course);
     }
 
+    @GetMapping("/deleteCourseById")
+    public Result deleteCourseById(@RequestParam("id") Long id) {
+        return adminService.deleteCourseById(id);
+    }
+
 }

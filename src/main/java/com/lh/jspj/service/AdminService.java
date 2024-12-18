@@ -31,4 +31,6 @@ public interface AdminService extends IService<Admin> {
     Result getCourse(int pageNum, int pageSize);
 
     Result updateCourse(Course course);
+
+    Result deleteCourseById(Long id);
 }
