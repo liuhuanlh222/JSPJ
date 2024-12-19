@@ -17,4 +17,6 @@ public interface TeacherService extends IService<Teacher> {
     Result info();
 
     Result getCourse(int pageNum, int pageSize);
+
+    Result addTeacher(Teacher teacher);
 }

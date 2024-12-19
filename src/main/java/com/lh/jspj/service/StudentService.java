@@ -1,6 +1,7 @@
 package com.lh.jspj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lh.jspj.dto.Result;
 import com.lh.jspj.entity.Student;
 
 /**
@@ -10,4 +11,5 @@ import com.lh.jspj.entity.Student;
  * @date 2024/12/12 15:24
  */
 public interface StudentService extends IService<Student> {
+    Result addStudent(Student student);
 }

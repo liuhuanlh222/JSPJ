@@ -1,8 +1,9 @@
 package com.lh.jspj.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.lh.jspj.dto.Result;
-import com.lh.jspj.entity.Course;
-import com.lh.jspj.service.CourseService;
+import com.lh.jspj.entity.Student;
+import com.lh.jspj.service.StudentService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,18 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author LH
  * @version 1.0
- * @description 课程前端控制器
- * @date 2024/12/16 16:07
+ * @description 学生前端控制器
+ * @date 2024/12/19 16:46
  */
 @RestController
-@RequestMapping("course")
-public class CourseController {
+@RequestMapping("student")
+public class StudentController {
 
     @Resource
-    private CourseService courseService;
+    private StudentService studentService;
 
-    @PostMapping("/addCourse")
-    public Result addCourse(@RequestBody Course course) {
-        return courseService.addCourse(course);
+    @PostMapping("/addStudent")
+    public Result addStudent(@RequestBody Student student) {
+        return studentService.addStudent(student);
     }
 }

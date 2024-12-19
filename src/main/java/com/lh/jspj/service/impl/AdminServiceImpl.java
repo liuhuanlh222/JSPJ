@@ -38,10 +38,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private ScoreService scoreService;
 
     @Resource
-    private TeacherCourseServiceImpl teacherCourseService;
+    private TeacherCourseService teacherCourseService;
 
     @Resource
-    private StudentCourseServiceImpl studentCourseService;
+    private StudentCourseService studentCourseService;
+
 
     @Override
     public Result get() {
@@ -139,7 +140,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         if (teacher == null) {
             return Result.fail("教师不存在");
         }
-
         //更改课程信息
         Course OldCourse = courseService.query().eq("id", courseId).one();
         OldCourse.setTeacherName(teacherName);
@@ -149,10 +149,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         //课程信息表更新
         courseService.updateById(OldCourse);
 
-        //教师课程信息表更新
         TeacherCourse teacherCourse = teacherCourseService.query().eq("course_id", courseId).one();
+        //教师表更新
+        //原教师减一
+        teacherService.update().setSql("course_number = course_number - 1").eq("id", teacherCourse.getTeacherId()).update();
+        //新教师加一
+        teacherService.update().setSql("course_number = course_number + 1").eq("id", teacher.getId()).update();
+        //教师课程信息表更新
         teacherCourse.setTeacherId(teacher.getId());
         teacherCourseService.updateById(teacherCourse);
+
         return Result.ok();
     }
 
@@ -172,6 +178,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         //删除教师课表信息表，一个课程对应一个教师
         TeacherCourse teacherCourse = teacherCourseService.query().eq("course_id", id).one();
         teacherCourseService.removeById(teacherCourse);
+        //教师教授课程数量减一
+        teacherService.update().setSql("course_number = course_number - 1").eq("id", teacherCourse.getTeacherId()).update();
+        //删除课程信息对应分数表
+        Score score = scoreService.query().eq("course_id", id).one();
+        scoreService.removeById(score);
         //删除课程信息
         courseService.removeById(id);
         return Result.ok();

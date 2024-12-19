@@ -1,6 +1,7 @@
 package com.lh.jspj.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -30,6 +31,9 @@ public class Teacher {
 
     //昵称
     private String name;
+
+    //授课数量
+    private Integer courseNumber;
 
     private LocalDateTime createTime;
 

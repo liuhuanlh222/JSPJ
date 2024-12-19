@@ -1,5 +1,6 @@
 package com.lh.jspj.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -65,5 +66,17 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         Page<Course> page = new Page<>(pageNum, pageSize);
         page.setRecords(courses);
         return Result.ok(page.getRecords());
+    }
+
+    @Override
+    public Result addTeacher(Teacher teacher) {
+        Teacher teacher1 = query().eq("username", teacher.getUsername()).one();
+        if (teacher1 != null) {
+            return Result.fail("该账户已存在");
+        }
+        teacher.setIdentity(2);
+        teacher.setCourseNumber(0);
+        save(teacher);
+        return Result.ok(teacher);
     }
 }

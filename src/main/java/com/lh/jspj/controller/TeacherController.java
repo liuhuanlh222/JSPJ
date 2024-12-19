@@ -1,12 +1,10 @@
 package com.lh.jspj.controller;
 
 import com.lh.jspj.dto.Result;
+import com.lh.jspj.entity.Teacher;
 import com.lh.jspj.service.TeacherService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author LH
@@ -34,6 +32,11 @@ public class TeacherController {
     @GetMapping("/getCourse")
     public Result getCourse(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         return teacherService.getCourse(pageNum, pageSize);
+    }
+
+    @PostMapping("/addTeacher")
+    public Result addTeacher(@RequestBody Teacher teacher) {
+        return teacherService.addTeacher(teacher);
     }
 
 }
