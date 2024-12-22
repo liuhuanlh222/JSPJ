@@ -2,13 +2,11 @@ package com.lh.jspj.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.lh.jspj.dto.Result;
+import com.lh.jspj.entity.Evaluation;
 import com.lh.jspj.entity.Student;
 import com.lh.jspj.service.StudentService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author LH
@@ -26,5 +24,30 @@ public class StudentController {
     @PostMapping("/addStudent")
     public Result addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
+    }
+
+    @GetMapping("/get")
+    public Result getStudent() {
+        return studentService.get();
+    }
+
+    @GetMapping("/getCourse")
+    public Result getCourse(int pageNum, int pageSize) {
+        return studentService.getCourse(pageNum, pageSize);
+    }
+
+    @GetMapping("/info")
+    public Result info() {
+        return studentService.info();
+    }
+
+    @GetMapping("evaluate")
+    public Result evaluate(@RequestParam("id") Long id) {
+        return studentService.evaluate(id);
+    }
+
+    @PostMapping("addEvaluate")
+    public Result addEvaluate(@RequestBody Evaluation evaluation) {
+        return studentService.addEvaluate(evaluation);
     }
 }

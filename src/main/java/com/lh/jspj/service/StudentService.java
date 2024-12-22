@@ -2,6 +2,7 @@ package com.lh.jspj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lh.jspj.dto.Result;
+import com.lh.jspj.entity.Evaluation;
 import com.lh.jspj.entity.Student;
 
 /**
@@ -12,4 +13,14 @@ import com.lh.jspj.entity.Student;
  */
 public interface StudentService extends IService<Student> {
     Result addStudent(Student student);
+
+    Result get();
+
+    Result getCourse(int pageNum, int pageSize);
+
+    Result info();
+
+    Result evaluate(Long id);
+
+    Result addEvaluate(Evaluation evaluation);
 }

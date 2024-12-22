@@ -44,4 +44,7 @@ public class Course {
     @TableField(exist = false)
     private double score;
 
+    @TableField(exist = false)
+    private int status;
+
 }

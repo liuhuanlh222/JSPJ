@@ -1,32 +1,37 @@
 package com.lh.jspj.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
-
 /**
  * @author LH
  * @version 1.0
- * @description 学生与课程
- * @date 2024/12/16 15:44
+ * @description 评教信息
+ * @date 2024/12/22 17:22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("student_course")
-public class StudentCourse {
+@TableName("tb_evaluation")
+public class Evaluation {
 
     private Long id;
 
-    private Long studentId;
-
     private Long courseId;
 
-    private LocalDateTime createTime;
+    private Long studentId;
 
-    private int status;
+    private double indexOne;
+
+    private double indexTwo;
+
+    private double indexThree;
+
+    private double indexFour;
+
+    private double indexFive;
+
+    private double score;
 }
