@@ -18,4 +18,10 @@ public interface MessageService extends IService<Message> {
     Result deleteMessage(Long id);
 
     Result addMessage(Message message);
+
+    Result getAdminMessage(int pageNum, int pageSize);
+
+    Result approveMessage(Long id);
+
+    Result rejectMessage(Long id);
 }

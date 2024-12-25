@@ -6,12 +6,12 @@ spring:
     name: jspj-project
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.146:3306/jspj?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.101.147:3306/jspj?useSSL=false&serverTimezone=UTC
     username: root
     password: Baydi285396.
   data:
     redis:
-      host: 192.168.101.146
+      host: 192.168.101.147
       port: 6379
       password: 1234
       database: 2
@@ -21,6 +21,12 @@ spring:
           max-idle: 10
           min-idle: 1
           time-between-eviction-runs: 10s
+alipay:
+  appId: 9021000140661217
+  appPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCOCPgv4nD8sc/dE5FhrYatmIXeZAAhPULiXB5BNKfzmowmIuYLkmlAJRhLNIEXIxaY+BjaAQO03NJx8f0210uvMPlK0SRNBjln8A6DdOEfk4aZLiLljLKHIiHYeo+wj6wO0qu9J39Vs8Pb+lT1TNzaaTn3M/HIcklVgBrTZhPpXAmJcLpwB97/fiE5ZETgD+Qt0y6repF4zv/GCmpQAIkcP4eH+vPkFkwmaqtiKj336JKzJ2qKV0hoXYooXJuK/i9HMG7HljMaIFbs+9eNxhVQGbW7L+2hm9jeYaHIUYcPACqHDOxkRHixOf/N+Het05Cw1ZUTQ54pN/xBhCFqKkERAgMBAAECggEAJzxjExdCjwuvmCqnpowBAEN59404W/ZIW6+GzAx3uNugi4hodBnl6UpWA7BlWLbgrzEZ7F8LXxMBL2jhwhyHU8X7l6del8h4YzX1TGslJUvjir0r9q1/Q8UyBFMXDnch2JZpyr72df5KxKHKhljNSah30soOqIipqWzR/EPejD/q72VYpawdwayMy9g0skLZpYGNDuCsgLUM16blsbG/AJ4Q6ooD1agzGRtggsFPe4DPFCrZMNrBwjsr3Xg4AGfkSea2ugnahfJ4UxyN6tgbShmfsL+UZHIslBORTqHqmTGOtpwJ8Gk0sH+iP5cAiUg8+lGJGUG7h/4/s+QMj15wAQKBgQD822AJtfPNhWRwKEHQmU+GvSnTNGdbWHBOjH1yhMlRgafuk1eV+GlW345HX761Sp74prUwlMD41rCQzU/kmv8j6qblqDUfVcei6ugMpWw/ZkL5YdR9T6xx6b9l9x0wU03ntq5MXRvupGeSk5dF3c0SJOiCp1DsR6hB+Dp5PfS0YQKBgQCPzPGxltRUtDasT2Uwl94srbQRXNzAO0WAD/swPAIm8PKHEs0FAng7SD1tpsODSsCSZiBcotZqTxbFphs68c7Jf3M9xW/x8hdXgbm7MR4h5tP+1SAWyCuR2rnp4lqOr4iE/T2yvmAC17Si3CEqHbsQqreEEm1A9XI04fPKD8XKsQKBgQDo2xmxN6fCz6H0C464jEcJXTCkOLEqFOKv438vNAu1jMJa2cOh73cKsqtzHUAh8gs+Dz/y8jpXrlZBs2FstDRcHh7+hY4OQk+rv8pcwwZRyFnLEQW/NN0otks1moF93Gl1Bu2yk1hCx5I+EL8RbzYIDIc2suC6By9zOSaYOq8cYQKBgCrWT42qs9gD02GjSS6fnxTKLiEZ+7zcK0kJ+bcVuUJmdqkcRazfXneyfnIiwo1jAFjcSXmvHJaQtuTsJaJ6lDJcYDUfksiNaLytrWmBKUvKGo8IaEXBHZGWidmNj5J/4fhUBEQyCCHwpiP51XtZXfeKE58pahh2xa3RPbGM30wRAoGAGGhsi0k9ohBEvkK1NlE9QLKGdT71YgXdJtTWW98zgO3tScaQvvlAjnmsVwx2fwTcbYN4kmEo7lxvdkRWAfn7DFRuI+9teBw+f+T8j4FuqdcMfpGjIVYczQzqMRSTiYMpL6Y8ONIIQcLZh7xxx4Ahjl+q+JUZBzTYPY34UeSCobk=
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAitYfGRn2uQOcvle3W2y8c2fzihWCMhoBQ6jP3NI85t3IQaT3KBBr5KM+BWj4pOAFe7GMvxh3jx3MjCjRmaAGU3YjZJwlYnlSKI7Ad4FE7emVVE+tPAKzupkbPazBl84aZ33ra0MY+aeeRNsVH//CLIPt5nOQxEzZ8LHjmRkhhVgWPZGP8iHcV8FpoI2vkkUbJ9RLglvvIceIEVvK/4w9IBOIBckgunupJYtuPEEYV96ZxvqTZRNZYp1gd/2w7lOBTuCDmQ7Mmzhlvfk+tI86T3ECcURBfzF1cs7xFYzkTaMLM13OxQ7/X01VfcBNRBcTxjgSZXrN4AIV/hq0KoKPaQIDAQAB
+  notifyUrl: http://ufmm4e.natappfree.cc/alipay/notify
+
 mybatis-plus:
   type-aliases-package: com.lh.jspj.entity # 别名扫描包
 logging:

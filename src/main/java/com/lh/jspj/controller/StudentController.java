@@ -1,7 +1,9 @@
 package com.lh.jspj.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.lh.jspj.dto.AddCourseDTO;
 import com.lh.jspj.dto.Result;
+import com.lh.jspj.entity.Course;
 import com.lh.jspj.entity.Evaluation;
 import com.lh.jspj.entity.Student;
 import com.lh.jspj.service.StudentService;
@@ -49,5 +51,15 @@ public class StudentController {
     @PostMapping("addEvaluate")
     public Result addEvaluate(@RequestBody Evaluation evaluation) {
         return studentService.addEvaluate(evaluation);
+    }
+
+    @PostMapping("/addCourse")
+    public Result addCourse(@RequestBody AddCourseDTO addCourseDTO) {
+        return studentService.addCourse(addCourseDTO);
+    }
+
+    @GetMapping("/teachers")
+    public Result teachers() {
+        return studentService.teachers();
     }
 }

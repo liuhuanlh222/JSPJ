@@ -3,6 +3,7 @@ package com.lh.jspj.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lh.jspj.dto.AddCourseDTO;
 import com.lh.jspj.dto.Result;
 import com.lh.jspj.dto.UserDTO;
 import com.lh.jspj.dto.UserHolder;
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author LH
@@ -43,6 +46,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Resource
     private ScoreService scoreService;
+
+    @Resource
+    private OrderService orderService;
 
 
     @Override
@@ -130,8 +136,91 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         for (Evaluation evaluation1 : evaluations) {
             totalScore += evaluation1.getScore();
         }
+        totalScore /= evaluations.size();
         scoreService.update().set("score", totalScore).eq("course_id", courseId).update();
 
         return Result.ok();
+    }
+
+    @Transactional
+    @Override
+    public Result addCourse(AddCourseDTO addCourseDTO) {
+        Long studentId = UserHolder.getUser().getId();
+        //获取学生和老师姓名
+        String courseName = addCourseDTO.getCourseName();
+        String teacherName = addCourseDTO.getTeacherName();
+        //获取教师id
+        Teacher teacher = teacherService.query().eq("name", teacherName).one();
+        if (teacher == null) {
+            return Result.fail("教师不存在");
+        }
+        Long teacherId = teacher.getId();
+        //判断是否有该课程以及老师
+        List<Course> courses = courseService.query().eq("course_name", courseName).list();
+        if (courses.isEmpty()) {
+            return Result.fail("课程不存在");
+        }
+        boolean ifFlag = false;
+        TeacherCourse teacherCourse = new TeacherCourse();
+        for (Course course : courses) {
+            teacherCourse = teacherCourseService.query().eq("teacher_id", teacherId).eq("course_id", course.getId()).one();
+            if (teacherCourse != null) {
+                ifFlag = true;
+                break;
+            }
+        }
+        if (!ifFlag) {
+            return Result.fail("教师课程信息有误");
+        }
+        //查看学生课程信息
+        StudentCourse studentCourse = studentCourseService.query().eq("student_id", studentId).eq("course_id", teacherCourse.getCourseId()).one();
+        if (studentCourse != null) {
+            return Result.fail("该课程已经选择");
+        }
+        //创建订单
+        Order order = new Order();
+        String orderNo = UUID.randomUUID().toString();
+        order.setCourseId(teacherCourse.getCourseId());
+        order.setStudentId(studentId);
+        order.setCreateTime(LocalDateTime.now());
+        order.setOrderNo(orderNo);
+        order.setStatus(0);
+        orderService.save(order);
+        return Result.ok(orderNo);
+    }
+
+    @Transactional
+    @Override
+    public void addCourseSuccess(Long studentId, Long courseId) {
+        //修改学生课程表
+        StudentCourse studentCourse = new StudentCourse();
+        studentCourse.setStudentId(studentId);
+        studentCourse.setCourseId(courseId);
+        studentCourse.setStatus(0);
+        studentCourseService.save(studentCourse);
+        //增加课程选人数量
+        courseService.update().setSql("number = number + 1").setSql("un_evaluation = un_evaluation + 1").eq("id", courseId).update();
+        //增加学生选课数量
+        update().setSql("course_number = course_number + 1").eq("id", studentId).update();
+    }
+
+    @Override
+    public Result teachers() {
+        //获取id
+        Long studentId = UserHolder.getUser().getId();
+        List<StudentCourse> studentCourses = studentCourseService.query().eq("student_id", studentId).list();
+        if (studentCourses.isEmpty()) {
+            return Result.ok(Collections.emptyList());
+        }
+        List<String> teachersName = new ArrayList<>();
+        for (StudentCourse studentCourse : studentCourses) {
+            //获取课程id
+            Long courseId = studentCourse.getCourseId();
+            //根据课程id查询教师
+            TeacherCourse teacherCourse = teacherCourseService.query().eq("course_id", courseId).one();
+            Teacher teacher = teacherService.query().eq("id", teacherCourse.getTeacherId()).one();
+            teachersName.add(teacher.getName());
+        }
+        return Result.ok(teachersName);
     }
 }

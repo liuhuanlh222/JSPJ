@@ -5,29 +5,33 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * @author LH
  * @version 1.0
- * @description 留言信息
- * @date 2024/12/22 16:59
+ * @description 订单信息
+ * @date 2024/12/24 22:32
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("tb_message")
-public class Message {
+@TableName("tb_order")
+public class Order {
 
     private Long id;
 
-    private Long teacherId;
-
-    private String teacherName;
+    private Long courseId;
 
     private Long studentId;
 
-    private String studentName;
+    private LocalDateTime createTime;
 
-    private String content;
+    private String orderNo;
+
+    private String payNo;
+
+    private LocalDateTime payTime;
 
     private int status;
 }

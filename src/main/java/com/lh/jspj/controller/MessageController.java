@@ -38,4 +38,19 @@ public class MessageController {
     public Result addMessage(@RequestBody Message message) {
         return messageService.addMessage(message);
     }
+
+    @GetMapping("/getAdminMessage")
+    public Result getAdminMessage(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
+        return messageService.getAdminMessage(pageNum, pageSize);
+    }
+
+    @GetMapping("/approve")
+    public Result approveMessage(@RequestParam("id") Long id) {
+        return messageService.approveMessage(id);
+    }
+
+    @GetMapping("/reject")
+    public Result rejectMessage(@RequestParam("id") Long id) {
+        return messageService.rejectMessage(id);
+    }
 }

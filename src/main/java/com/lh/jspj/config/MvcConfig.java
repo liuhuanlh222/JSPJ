@@ -26,7 +26,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .excludePathPatterns(
                         //不拦截路径
-                        "/user/login"
+                        "/user/login",
+                        "/alipay/notify"
                 ).order(1);
         //token刷新拦截器
         registry.addInterceptor(new RefreshToken(stringRedisTemplate)).addPathPatterns("/**").order(0);

@@ -42,6 +42,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Resource
     private StudentCourseService studentCourseService;
 
+    @Resource
+    private EvaluationService evaluationService;
+
 
     @Override
     public Result get() {
@@ -182,6 +185,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         //删除课程信息对应分数表
         Score score = scoreService.query().eq("course_id", id).one();
         scoreService.removeById(score);
+        //删除评分表
+        List<Evaluation> evaluations = evaluationService.query().eq("course_id", id).list();
+        evaluationService.removeByIds(evaluations);
         //删除课程信息
         courseService.removeById(id);
         return Result.ok();

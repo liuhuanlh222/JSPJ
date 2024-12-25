@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author LH
@@ -31,7 +32,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Override
     public Result getStudentMessage(Long id, int pageNum, int pageSize) {
         Page<Message> page = new Page<>(pageNum, pageSize);
-        Page<Message> message = query().eq("student_id", id).page(page);
+        Page<Message> message = query().eq("student_id", id).eq("status", 1).page(page);
         if (message.getRecords().isEmpty()) {
             return Result.ok(Collections.emptyList());
         }
@@ -41,7 +42,17 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Override
     public Result getTeacherMessage(Long id, int pageNum, int pageSize) {
         Page<Message> page = new Page<>(pageNum, pageSize);
-        Page<Message> message = query().eq("teacher_id", id).page(page);
+        Page<Message> message = query().eq("teacher_id", id).eq("status", 1).page(page);
+        if (message.getRecords().isEmpty()) {
+            return Result.ok(Collections.emptyList());
+        }
+        return Result.ok(message.getRecords());
+    }
+
+    @Override
+    public Result getAdminMessage(int pageNum, int pageSize) {
+        Page<Message> page = new Page<>(pageNum, pageSize);
+        Page<Message> message = query().eq("status", 0).page(page);
         if (message.getRecords().isEmpty()) {
             return Result.ok(Collections.emptyList());
         }
@@ -72,7 +83,21 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         message.setStudentId(studentId);
         message.setStudentName(student.getName());
         message.setTeacherId(teacher.getId());
+        message.setStatus(0);
         save(message);
+        return Result.ok();
+    }
+
+    @Override
+    public Result approveMessage(Long id) {
+        update().set("status", 1).eq("id", id).update();
+        return Result.ok();
+    }
+
+    @Override
+    public Result rejectMessage(Long id) {
+        //直接删除留言
+        deleteMessage(id);
         return Result.ok();
     }
 }
