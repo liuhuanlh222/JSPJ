@@ -8,10 +8,12 @@ import com.lh.jspj.dto.Result;
 import com.lh.jspj.dto.UserDTO;
 import com.lh.jspj.dto.UserHolder;
 import com.lh.jspj.entity.Course;
+import com.lh.jspj.entity.Score;
 import com.lh.jspj.entity.Teacher;
 import com.lh.jspj.entity.TeacherCourse;
 import com.lh.jspj.mapper.TeacherMapper;
 import com.lh.jspj.service.CourseService;
+import com.lh.jspj.service.ScoreService;
 import com.lh.jspj.service.TeacherCourseService;
 import com.lh.jspj.service.TeacherService;
 import jakarta.annotation.Resource;
@@ -36,6 +38,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
     @Resource
     private CourseService courseService;
+
+    @Resource
+    private ScoreService scoreService;
 
     @Override
     public Result get() {
@@ -63,6 +68,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         }
         List<Long> courseIds = teacherCourses.stream().map(TeacherCourse::getCourseId).toList();
         List<Course> courses = courseService.listByIds(courseIds);
+        for (Course course : courses) {
+            Long courseId = course.getId();
+            //获取分数
+            Score score = scoreService.query().eq("course_id", courseId).one();
+            course.setScore(score.getScore());
+        }
         Page<Course> page = new Page<>(pageNum, pageSize);
         page.setRecords(courses);
         return Result.ok(page.getRecords());
