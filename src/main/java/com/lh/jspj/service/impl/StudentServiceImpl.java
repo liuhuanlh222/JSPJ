@@ -219,6 +219,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             //根据课程id查询教师
             TeacherCourse teacherCourse = teacherCourseService.query().eq("course_id", courseId).one();
             Teacher teacher = teacherService.query().eq("id", teacherCourse.getTeacherId()).one();
+            if (teachersName.contains(teacher.getName())){
+                continue;
+            }
             teachersName.add(teacher.getName());
         }
         return Result.ok(teachersName);
