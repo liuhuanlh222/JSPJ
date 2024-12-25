@@ -43,12 +43,12 @@ public class StudentController {
         return studentService.info();
     }
 
-    @GetMapping("evaluate")
+    @GetMapping("/evaluate")
     public Result evaluate(@RequestParam("id") Long id) {
         return studentService.evaluate(id);
     }
 
-    @PostMapping("addEvaluate")
+    @PostMapping("/addEvaluate")
     public Result addEvaluate(@RequestBody Evaluation evaluation) {
         return studentService.addEvaluate(evaluation);
     }
